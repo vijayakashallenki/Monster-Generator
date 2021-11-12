@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Maker</title>
+    <!--Google Font-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+
+    :root {
+        --color-monster: #a8d530;
+        --color-tail: #e50027;
+        --color-horns: #e50027;
+      }
+      *,
+      *:before,
+      *:after {
+        padding: 0;
+        margin: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+      body {
+        background-color: #9401bf;
+      }
+      #loader {
+        width: 320px;
+        height: 320px;
+        position: absolute;
+        -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+        top: 50%;
+        left: 50%;
+        background-color: #ffffff;
+        border-radius: 8px;
+        display: -ms-grid;
+        display: grid;
+        place-items: center;
+      }
+      #loader:before {
+        content: "";
+        position: absolute;
+        height: 160px;
+        width: 160px;
+        border: 15px solid #a0a0a0;
+        border-radius: 50%;
+        border-top-color: #9401bf;
+        -webkit-animation: spin 1.5s linear infinite;
+                animation: spin 1.5s linear infinite;
+      }
+      @-webkit-keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+                  transform: rotate(360deg);
+        }
+      }
+      @keyframes spin {
+        100% {
+          -webkit-transform: rotate(360deg);
+                  transform: rotate(360deg);
+        }
+      }
+      .box {
+        position: absolute;
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+        top: 20px;
+        left: 50%;
+        width: 90vmin;
+        display: none;
+      }
+      .wrapper {
+        background-color: #ffffff;
+        width: 100%;
+        padding: 30px 0;
+        border-radius: 10px;
+        -webkit-box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      }
+      a {
+        display: block;
+        width: 100%;
+        background-color: #2b0a5c;
+        padding: 15px 0;
+        margin: 30px 0 50px 0;
+        border-radius: 5px;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+      }
+      .buttons {
+        width: 90%;
+        position: relative;
+        margin: auto;
+        padding: 20px 0 40px 0;
+        border-bottom: 2px dashed #9401bf;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        gap: 20px;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+      }
+      .buttons button {
+        background-color: #9401bf;
+        color: #ffffff;
+        font-family: "Poppins", sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        padding: 10px 30px;
+        border-radius: 25px;
+        border: none;
+        outline: none;
+      }
+      .container {
+        position: relative;
+      }
+      .monster {
+        overflow: hidden;
+        position: relative;
+        margin: auto;
+        height: 420px;
+        width: 320px;
+      }
+      .monster-body {
+        height: 310px;
+        width: 220px;
+        background-color: var(--color-monster);
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        top: 50px;
+        border-radius: 10px 10px 0 0;
+      }
+      .monster-body:before {
+        content: "";
+        width: 300px;
+        height: 40px;
+        background-color: var(--color-monster);
+        position: absolute;
+        top: 140px;
+        left: -40px;
+        border-radius: 5px;
+      }
+      .monster-body:after {
+        content: "";
+        height: 40px;
+        width: 30px;
+        background-color: var(--color-monster);
+        border-radius: 0 0 5px 5px;
+        position: absolute;
+        bottom: -39px;
+        -webkit-box-shadow: 189.5px 0 0 0 var(--color-monster);
+                box-shadow: 189.5px 0 0 0 var(--color-monster);
+      }
+      .monster-horns {
+        width: 280px;
+        height: 200px;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 30px var(--color-horns);
+                box-shadow: 0 30px var(--color-horns);
+        position: absolute;
+        -webkit-transform: translateX(-50%);
+            -ms-transform: translateX(-50%);
+                transform: translateX(-50%);
+        top: -85px;
+        left: 50%;
+      }
+      .monster-tail {
+        height: 50px;
+        width: 120px;
+        border: 10px solid var(--color-tail);
+        position: absolute;
+        left: 190px;
+        top: 270px;
+        -webkit-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+                transform: rotate(-10deg);
+        border-top: none;
+        border-radius: 0 0 20px 0;
+      }
+      .monster-tail:before {
+        content: "";
+        position: absolute;
+        height: 0;
+        width: 0;
+        border-bottom: 20px solid var(--color-tail);
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        left: 85px;
+        bottom: 39px;
+      }
+      .monster-body img {
+        position: absolute;
+        left: -1.5px;
+      }
+
+      .images {
+        position: absolute;
+      }
+      .images img {
+        width: 1px;
+        height: 1px;
+      }
+      @media screen and (max-width: 580px) {
+        .box {
+          width: 98vmin;
+        }
+        .wrapper {
+          padding: 0;
+        }
+        .buttons {
+          padding: 20px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="loader"></div>
+    <div class="box" id="box">
+      <div class="wrapper">
+        <div class="buttons">
+          <button id="color-btn">Color</button>
+          <button id="horns-btn">Horns</button>
+          <button id="face-btn">Face</button>
+          <button id="tail-btn">Tail</button>
+        </div>
+        <div class="container">
+          <div class="monster">
+            <div class="monster-horns"></div>
+            <div class="monster-tail"></div>
+            <div class="monster-body">
+              <img src="https://i.postimg.cc/nr5MCqG9/face-0.png" id="face" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <a href="https://youtu.be/3jraAvWM3LM" target="_blank"
+        >My Youtube Channel</a
+      >
+    </div>
+    <div class="images">
+      <img src="https://i.postimg.cc/nr5MCqG9/face-0.png" />
+      <img src="https://i.postimg.cc/XNDrH06N/face-1.png" />
+      <img src="https://i.postimg.cc/ZKBCXDJ8/face-2.png" />
+      <img src="https://i.postimg.cc/QMbtc2q3/face-3.png" />
+      <img src="https://i.postimg.cc/k59G6JKs/face-4.png" />
+      <img src="https://i.postimg.cc/DZwz6xCb/face-5.png" />
+    </div>
+    <script>
+      window.addEventListener("load", () => {
+        document.getElementById("box").style.display = "block";
+        document.getElementById("loader").style.display = "none";
+      });
+
+      let colorBtn = document.getElementById("color-btn");
+      let faceBtn = document.getElementById("face-btn");
+      let hornsBtn = document.getElementById("horns-btn");
+      let tailBtn = document.getElementById("tail-btn");
+
+      let docRoot = document.querySelector(":root");
+
+      let bodyColors = [
+        "#A8D530",
+        "#42AAFF",
+        "#F3D55B",
+        "#FF4F51",
+        "#904AE8",
+        "#FFA711",
+      ];
+      let colors = [...bodyColors, "transparent"];
+      let [counter1, counter2, counter3, counter4] = Array(4).fill(0);
+
+      let faces = [
+        "https://i.postimg.cc/nr5MCqG9/face-0.png",
+        "https://i.postimg.cc/XNDrH06N/face-1.png",
+        "https://i.postimg.cc/ZKBCXDJ8/face-2.png",
+        "https://i.postimg.cc/QMbtc2q3/face-3.png",
+        "https://i.postimg.cc/k59G6JKs/face-4.png",
+        "https://i.postimg.cc/DZwz6xCb/face-5.png",
+      ];
+
+      let setCounter = (counter, len) => {
+        return counter < len - 1 ? counter + 1 : 0;
+      };
+
+      faceBtn.addEventListener("click", () => {
+        counter1 = setCounter(counter1, faces.length);
+        document.getElementById("face").setAttribute("src", faces[counter1]);
+      });
+      colorBtn.addEventListener("click", () => {
+        counter2 = setCounter(counter2, bodyColors.length);
+        docRoot.style.setProperty("--color-monster", colors[counter2]);
+      });
+      hornsBtn.addEventListener("click", () => {
+        counter3 = setCounter(counter3, colors.length);
+        docRoot.style.setProperty("--color-horns", colors[counter3]);
+      });
+      tailBtn.addEventListener("click", () => {
+        counter4 = setCounter(counter4, colors.length);
+        docRoot.style.setProperty("--color-tail", colors[counter4]);
+      });
+    </script>
+  </body>
+</html>
